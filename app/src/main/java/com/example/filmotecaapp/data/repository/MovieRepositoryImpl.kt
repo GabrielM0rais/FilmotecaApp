@@ -13,6 +13,6 @@ class MovieRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getPopularMovies(page: Int): GetPopularMoviesResponse {
-        return service.getPopularMovies(page, API_KEY)
+        return service.getPopularMovies(API_KEY, "en", page)
     }
 }

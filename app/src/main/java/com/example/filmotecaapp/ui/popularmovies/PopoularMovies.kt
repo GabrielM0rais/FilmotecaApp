@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.example.filmotecaapp.databinding.FragmentPopoularMoviesBinding
+import com.example.filmotecaapp.util.StateView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -15,7 +17,7 @@ class PopoularMovies : Fragment() {
         fun newInstance() = PopoularMovies()
     }
 
-    private lateinit var viewModel: PopoularMoviesViewModel
+    private val viewModel: PopoularMoviesViewModel by viewModels()
 
     private var _binding: FragmentPopoularMoviesBinding? = null
     private val binding get() = _binding!!
@@ -31,7 +33,22 @@ class PopoularMovies : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // TODO: Use the ViewModel
+
+        getPopularMovies(1)
+    }
+
+    private fun getPopularMovies(page: Int) {
+        viewModel.getPopularMovies(page).observe(viewLifecycleOwner) { stateView ->
+            when (stateView) {
+                is StateView.Success -> {
+                    println("SUCCESS")
+                }
+                is StateView.Error<*> -> {
+                    println("ERROR")
+                }
+                else -> {}
+            }
+        }
     }
 
     override fun onDestroyView() {

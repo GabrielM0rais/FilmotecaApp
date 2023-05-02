@@ -2,4 +2,11 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_graph" />
+    android:id="@+id/main_graph"
+    app:startDestination="@id/popoularMovies">
+    <fragment
+        android:id="@+id/popoularMovies"
+        android:name="com.example.filmotecaapp.ui.popularmovies.PopoularMovies"
+        android:label="fragment_popoular_movies"
+        tools:layout="@layout/fragment_popoular_movies" />
+</navigation>
