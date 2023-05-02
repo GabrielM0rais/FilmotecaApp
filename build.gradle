@@ -6,6 +6,7 @@ buildscript {
         hilt_version = '2.44'
         navigation_version = '2.53'
         lifecycle_version = '2.6.0'
+        ext.roomVersion = "2.4.2"
     }
 }
 plugins {
