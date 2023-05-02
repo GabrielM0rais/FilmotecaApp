@@ -15,4 +15,5 @@ abstract class DomainModule {
     abstract fun bindMovieRepositoryImpl (
         movieRepositoryImpl: MovieRepositoryImpl
     ) : MovieRepository
+
 }

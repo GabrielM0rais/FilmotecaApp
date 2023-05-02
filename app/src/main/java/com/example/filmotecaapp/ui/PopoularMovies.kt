@@ -1,4 +1,4 @@
-package com.example.filmotecaapp.ui.popularmovies
+package com.example.filmotecaapp.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -17,7 +17,7 @@ class PopoularMovies : Fragment() {
         fun newInstance() = PopoularMovies()
     }
 
-    private val viewModel: PopoularMoviesViewModel by viewModels()
+    private val viewModel: MovieViewModel by viewModels()
 
     private var _binding: FragmentPopoularMoviesBinding? = null
     private val binding get() = _binding!!
@@ -41,7 +41,8 @@ class PopoularMovies : Fragment() {
         viewModel.getPopularMovies(page).observe(viewLifecycleOwner) { stateView ->
             when (stateView) {
                 is StateView.Success -> {
-                    println("SUCCESS")
+                    println(stateView.data?.get(0)?.title)
+                    binding.textviewText.text = stateView.data?.get(0)?.title
                 }
                 is StateView.Error<*> -> {
                     println("ERROR")

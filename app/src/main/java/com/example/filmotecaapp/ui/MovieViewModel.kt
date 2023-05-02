@@ -1,4 +1,4 @@
-package com.example.filmotecaapp.ui.popularmovies
+package com.example.filmotecaapp.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
@@ -9,7 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 @HiltViewModel
-class PopoularMoviesViewModel @Inject constructor(
+class MovieViewModel @Inject constructor(
     private val getPopularMoviesUseCase: GetPopularMoviesUseCase
 ) : ViewModel() {
 
@@ -19,7 +19,7 @@ class PopoularMoviesViewModel @Inject constructor(
 
             val movies = getPopularMoviesUseCase(page)
 
-            emit(StateView.Success(movies))
+            emit(StateView.Success(movies.results))
         }
         catch (e: Exception) {
             e.printStackTrace()

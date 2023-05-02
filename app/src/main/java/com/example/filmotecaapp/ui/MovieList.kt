@@ -1,4 +1,4 @@
-package com.example.filmotecaapp.ui.movielist
+package com.example.filmotecaapp.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -16,7 +16,7 @@ class MovieList : Fragment() {
         fun newInstance() = MovieList()
     }
 
-    private val viewModel: MovieListViewModel by viewModels()
+    private val viewModel: MovieViewModel by viewModels()
 
     private var _binding: FragmentMovieListBinding? = null
     private val binding get() = _binding!!
