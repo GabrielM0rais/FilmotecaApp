@@ -10,10 +10,10 @@ import com.example.filmotecaapp.databinding.FragmentMovieListBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MovieList : Fragment() {
+class MovieListFragment : Fragment() {
 
     companion object {
-        fun newInstance() = MovieList()
+        fun newInstance() = MovieListFragment()
     }
 
     private val viewModel: MovieViewModel by viewModels()

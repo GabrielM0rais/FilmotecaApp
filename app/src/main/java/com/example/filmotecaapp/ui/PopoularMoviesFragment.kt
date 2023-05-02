@@ -11,10 +11,10 @@ import com.example.filmotecaapp.util.StateView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PopoularMovies : Fragment() {
+class PopoularMoviesFragment : Fragment() {
 
     companion object {
-        fun newInstance() = PopoularMovies()
+        fun newInstance() = PopoularMoviesFragment()
     }
 
     private val viewModel: MovieViewModel by viewModels()
