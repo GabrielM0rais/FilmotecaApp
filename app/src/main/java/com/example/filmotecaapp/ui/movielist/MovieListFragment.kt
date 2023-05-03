@@ -78,7 +78,7 @@ class MovieListFragment : Fragment() {
             lastItemBottomMargin = 16
         )
 
-        with(binding.recyclerMovies) {
+        with(binding.recyclerMovieList) {
             adapter = movieAdapter
             addItemDecoration(verticalSpaceItemDecoration)
         }
