@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="8dp"
     android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
+    android:outlineSpotShadowColor="@color/color_primary"
     app:cardCornerRadius="8dp"
-    app:cardElevation="10dp"
-    android:outlineSpotShadowColor="@color/color_primary">
+    app:cardElevation="10dp">
 
     <ViewFlipper
         android:id="@+id/view_flipper"
@@ -20,18 +20,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:text="MOVIE TITLE"
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="MOVIE TEST" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ProgressBar
             android:id="@+id/progress_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:indeterminateTint="@color/color_primary"/>
+            android:indeterminateTint="@color/color_primary" />
 
     </ViewFlipper>
 </androidx.cardview.widget.CardView>

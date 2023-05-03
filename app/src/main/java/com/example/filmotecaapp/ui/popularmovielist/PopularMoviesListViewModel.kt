@@ -17,12 +17,14 @@ class PopularMoviesListViewModel @Inject constructor(
 ) : ViewModel() {
     private val _popularMovies = MutableLiveData<MutableList<Movie>>()
     val currentPopularMovies: LiveData<MutableList<Movie>> = _popularMovies
+    var currentPage: Int = 0
 
-    fun getPopularMovies(page: Int) = liveData(Dispatchers.IO) {
+    fun getPopularMovies() = liveData(Dispatchers.IO) {
         try {
             emit(StateView.Loading())
+            currentPage += 1
 
-            val movies = getPopularMoviesUseCase(page)
+            val movies = getPopularMoviesUseCase(currentPage)
             val results = movies.results
             val currentPopularMoviesList = _popularMovies.value ?: mutableListOf()
             results.forEach {
@@ -31,8 +33,7 @@ class PopularMoviesListViewModel @Inject constructor(
             _popularMovies.postValue(currentPopularMoviesList)
 
             emit(StateView.Success(movies.results))
-        }
-        catch (e: Exception) {
+        } catch (e: Exception) {
             e.printStackTrace()
             emit(StateView.Error(message = e.message))
         }

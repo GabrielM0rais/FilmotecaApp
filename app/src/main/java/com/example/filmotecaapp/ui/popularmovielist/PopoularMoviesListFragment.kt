@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.filmotecaapp.databinding.FragmentPopoularMoviesBinding
 import com.example.filmotecaapp.ui.popularmovielist.adapter.PopularMoviesAdapter
 import com.example.filmotecaapp.util.Constants
@@ -44,32 +46,38 @@ class PopoularMoviesListFragment : Fragment() {
 
         initRecycler()
         initObservers()
-        getPopularMovies(1)
-    }
-
-    private fun getPopularMovies(page: Int) {
-        viewModel.getPopularMovies(page).observe(viewLifecycleOwner) { stateView ->
-            when (stateView) {
-                is StateView.Success -> {
-
-//                    parentFragmentManager.setFragmentResult(
-//                        Constants.REQUEST_MOVIE_KEY,
-//                        bundleOf(Pair(Constants.MOVIE_BUNDLE_KEY, stateView.data?.get(0)))
-//                    )
-
-                }
-                is StateView.Error<*> -> {
-                    println("ERROR")
-                }
-                else -> {}
-            }
-        }
+        initListeners()
+        getPopularMovies()
     }
 
     private fun initObservers() {
         viewModel.currentPopularMovies.observe(viewLifecycleOwner) { popularMovies ->
             popularMoviesAdapter.submitList(popularMovies)
         }
+    }
+
+    private fun initListeners() {
+        binding.recyclerMovieList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            private val debounceTime = 1000L
+            private var lastTime = 0L
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
+                val totalItemCount = layoutManager.itemCount
+
+                if (totalItemCount - lastVisibleItem <= 1) {
+                    val now = System.currentTimeMillis()
+                    if (now - lastTime > debounceTime) {
+                        lastTime = now
+                        getPopularMovies()
+                    }
+                }
+            }
+        })
+
     }
 
     private fun initRecycler() {
@@ -84,6 +92,26 @@ class PopoularMoviesListFragment : Fragment() {
         with(binding.recyclerMovieList) {
             adapter = popularMoviesAdapter
             addItemDecoration(verticalSpaceItemDecoration)
+        }
+    }
+
+    private fun getPopularMovies() {
+        viewModel.getPopularMovies().observe(viewLifecycleOwner) { stateView ->
+            when (stateView) {
+                is StateView.Loading -> {
+
+                }
+                is StateView.Success -> {
+                    popularMoviesAdapter.notifyDataSetChanged()
+//                    parentFragmentManager.setFragmentResult(
+//                        Constants.REQUEST_MOVIE_KEY,
+//                        bundleOf(Pair(Constants.MOVIE_BUNDLE_KEY, stateView.data?.get(0)))
+//                    )
+                }
+                is StateView.Error -> {
+
+                }
+            }
         }
     }
 
