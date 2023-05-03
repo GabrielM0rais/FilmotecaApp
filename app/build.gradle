@@ -36,6 +36,9 @@ android {
     viewBinding {
         enabled = true
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -58,6 +61,7 @@ dependencies {
     implementation "com.google.dagger:hilt-android:$hilt_version"
     implementation 'androidx.navigation:navigation-fragment:2.5.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.annotation:annotation:1.6.0'
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
     // Navigation

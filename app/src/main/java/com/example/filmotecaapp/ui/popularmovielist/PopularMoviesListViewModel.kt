@@ -1,4 +1,4 @@
-package com.example.filmotecaapp.ui
+package com.example.filmotecaapp.ui.popularmovielist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
@@ -9,7 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 @HiltViewModel
-class MovieViewModel @Inject constructor(
+class PopularMoviesListViewModel @Inject constructor(
     private val getPopularMoviesUseCase: GetPopularMoviesUseCase
 ) : ViewModel() {
 
