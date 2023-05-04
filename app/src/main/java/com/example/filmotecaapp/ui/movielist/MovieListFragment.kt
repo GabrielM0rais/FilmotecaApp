@@ -55,7 +55,7 @@ class MovieListFragment : Fragment() {
 
     private fun initListners() {
         binding.fabNavToPopularMovies.setOnClickListener {
-            findNavController().navigate(R.id.action_movieListFragment_to_popoularMoviesFragment)
+            findNavController().navigate(R.id.action_movieListFragment_to_popoularMoviesListFragment)
         }
 
         parentFragmentManager.setFragmentResultListener(

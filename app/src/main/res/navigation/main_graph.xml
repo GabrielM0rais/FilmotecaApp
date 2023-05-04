@@ -3,21 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph"
-    app:startDestination="@id/movieListFragment">
+    app:startDestination="@id/splashFragment">
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.filmotecaapp.ui.splash.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_movieListFragment"
+            app:destination="@id/movieListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/movieListFragment"
         android:name="com.example.filmotecaapp.ui.movielist.MovieListFragment"
         android:label="fragment_movie_list"
         tools:layout="@layout/fragment_movie_list" >
         <action
-            android:id="@+id/action_movieListFragment_to_popoularMoviesFragment"
-            app:destination="@id/popoularMoviesFragment"
+            android:id="@+id/action_movieListFragment_to_popoularMoviesListFragment"
+            app:destination="@id/popoularMoviesListFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"/>
     </fragment>
     <fragment
-        android:id="@+id/popoularMoviesFragment"
+        android:id="@+id/popoularMoviesListFragment"
         android:name="com.example.filmotecaapp.ui.popularmovielist.PopoularMoviesListFragment"
         android:label="fragment_popoular_movies"
         tools:layout="@layout/fragment_popoular_movies" />
