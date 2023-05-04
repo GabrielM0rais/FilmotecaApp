@@ -13,7 +13,7 @@ interface UserDao {
     fun saveUser(user: UserEntity)
 
     @Query("SELECT * FROM user WHERE id = :id")
-    fun getUser(id: Int): UserEntity
+    fun getUser(id: Long): UserEntity
 
     @Query("SELECT * FROM user WHERE username = :username AND password = :password")
     fun login(username: String, password: String): User
