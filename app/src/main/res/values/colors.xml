@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="color_primary_inactive">#556E48EB</color>
+    <color name="color_primary_inactive">#20172F</color>
     <color name="color_primary">#6E48EB</color>
     <color name="background_dafult">#FCFCFC</color>
 
 
     <color name="background">#1B122B</color>
     <color name="text_input_background">#292038</color>
+    <color name="login_input_stroke_color">#3E364C</color>
+    <color name="login_input_hint_color">#70697A</color>
 
     <color name="colorWhite">#FFF</color>
 
