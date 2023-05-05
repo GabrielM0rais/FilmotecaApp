@@ -10,9 +10,6 @@
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" >
         <action
-            android:id="@+id/action_splashFragment_to_movieListFragment"
-            app:destination="@id/movieListFragment" />
-        <action
             android:id="@+id/action_splashFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
@@ -52,6 +49,9 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"/>
+        <action
+            android:id="@+id/action_loginFragment_to_movieListFragment"
+            app:destination="@id/movieListFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"

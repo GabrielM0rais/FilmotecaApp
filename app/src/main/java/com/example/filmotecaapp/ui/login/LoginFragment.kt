@@ -13,7 +13,6 @@ import com.example.filmotecaapp.util.navigateWithAnimations
 
 class LoginFragment : Fragment() {
 
-
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
