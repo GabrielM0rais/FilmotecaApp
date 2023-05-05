@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppButton" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:background">@color/text_input_background</item>
+    </style>
+
+    <style name="AppButton.SignIn">
+        <item name="android:background">@drawable/rounded_corner</item>
+    </style>
+
+    <style name="AppEditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:background">@drawable/edittext_rounded_background</item>
+        <item name="android:textColor">@color/neutral.400</item>
+        <item name="android:textColorHint">@color/neutral.400</item>
+    </style>
+</resources>
