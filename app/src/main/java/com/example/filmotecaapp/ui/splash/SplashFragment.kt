@@ -26,7 +26,7 @@ class SplashFragment : Fragment() {
 
         Handler().postDelayed({
 
-            findNavController().navigate(R.id.movieListFragment)
+            findNavController().navigate(R.id.loginFragment)
             (requireActivity() as MainActivity).supportActionBar?.show()
         }, 3000)
     }
