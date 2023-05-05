@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.filmotecaapp.R
 import com.example.filmotecaapp.databinding.FragmentLoginBinding
+import com.example.filmotecaapp.util.navigateWithAnimations
 
 class LoginFragment : Fragment() {
 
@@ -32,7 +33,7 @@ class LoginFragment : Fragment() {
         val linearLayout: LinearLayout = binding.signUpTextContainer
 
         linearLayout.setOnClickListener {
-            findNavController().navigate(R.id.signUpFragment)
+            findNavController().navigateWithAnimations(R.id.signUpFragment)
         }
     }
 
