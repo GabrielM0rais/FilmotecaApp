@@ -10,11 +10,9 @@
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" >
         <action
-            android:id="@+id/action_splashFragment_to_loginFragment"
-            app:destination="@id/login" />
+            android:id="@+id/action_splashFragment_to_loginFragment2"
+            app:destination="@id/loginFragment" />
     </fragment>
-    <navigation android:id="@+id/loggedUser"
-        app:startDestination="@id/movieListFragment">
         <fragment
             android:id="@+id/movieListFragment"
             android:name="com.example.filmotecaapp.ui.movielist.MovieListFragment"
@@ -44,32 +42,21 @@
             android:name="com.example.filmotecaapp.ui.moviedetail.MovieDetailFragment"
             android:label="fragment_movie_detail"
             tools:layout="@layout/fragment_movie_detail" />
-    </navigation>
-    <navigation android:id="@+id/signUp"
-        app:startDestination="@id/signUpFragment">
         <fragment
             android:id="@+id/signUpFragment"
             android:name="com.example.filmotecaapp.ui.signup.SignUpFragment"
             android:label="fragment_sign_up"
             tools:layout="@layout/fragment_sign_up" />
-    </navigation>
-    <navigation android:id="@+id/login"
-        app:startDestination="@id/loginFragment">
         <fragment
             android:id="@+id/loginFragment"
             android:name="com.example.filmotecaapp.ui.login.LoginFragment"
             android:label="fragment_login"
             tools:layout="@layout/fragment_login">
-
-            <action
-                android:id="@+id/action_loginFragment_to_signUpFragment"
-                app:destination="@id/signUp"
-                app:enterAnim="@anim/slide_in_right"
-                app:exitAnim="@anim/slide_out_left"
-                app:popEnterAnim="@anim/slide_in_left" />
             <action
                 android:id="@+id/action_loginFragment_to_movieListFragment"
-                app:destination="@id/loggedUser" />
+                app:destination="@id/movieListFragment" />
+            <action
+                android:id="@+id/action_loginFragment_to_signUpFragment"
+                app:destination="@id/signUpFragment" />
         </fragment>
-    </navigation>
 </navigation>

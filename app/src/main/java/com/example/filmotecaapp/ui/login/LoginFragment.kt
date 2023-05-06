@@ -49,7 +49,7 @@ class LoginFragment : Fragment() {
         val signIn: AppCompatButton = binding.buttonLoginSignIn
 
         signUp.setOnClickListener {
-            findNavController().navigateWithAnimations(R.id.signUp)
+            findNavController().navigateWithAnimations(R.id.signUpFragment)
         }
 
         signIn.setOnClickListener {
@@ -67,7 +67,7 @@ class LoginFragment : Fragment() {
 
         viewModel.user.observe(viewLifecycleOwner) {
             if (it!= null) {
-                findNavController().navigateWithAnimations(R.id.loggedUser)
+                findNavController().navigateWithAnimations(R.id.movieListFragment)
             }
         }
     }
