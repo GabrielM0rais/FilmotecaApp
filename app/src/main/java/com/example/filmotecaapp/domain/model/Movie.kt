@@ -8,8 +8,12 @@ data class Movie (
     val id: Int,
     val title: String,
     val overview: String,
-    val releaseDate: String,
-    val posterPath: String?,
-    val backdropPath: String?,
-    val voteAverage: Double
-): Parcelable
+    val release_date: String,
+    val poster_path: String?,
+    val backdrop_path: String?,
+    val vote_average: Double
+): Parcelable {
+    fun getImageSource(): String {
+        return "https://image.tmdb.org/t/p/original${poster_path}"
+    }
+}

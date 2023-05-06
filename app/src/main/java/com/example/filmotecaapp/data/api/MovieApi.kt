@@ -10,6 +10,6 @@ interface MovieApi {
     suspend fun getPopularMovies(
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
-        @Query("page") page: Int
+        @Query("page") page: Int,
     ): GetPopularMoviesResponse
 }

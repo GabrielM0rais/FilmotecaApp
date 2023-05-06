@@ -13,7 +13,10 @@
 
     <color name="colorWhite">#FFF</color>
 
+    <color name="primary.100">#7835E5</color>
     <color name="primary.200">#5100D6</color>
+    <color name="primary.300">#3B0A8C</color>
+    <color name="primary.400">#29144F</color>
     <color name="neutral.200">#EBEBEB</color>
     <color name="neutral.300">#C0C0C0</color>
     <color name="neutral.400">#868686</color>

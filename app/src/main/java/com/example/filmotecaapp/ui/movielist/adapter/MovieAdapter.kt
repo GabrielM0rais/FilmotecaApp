@@ -41,7 +41,7 @@ class MovieAdapter: ListAdapter<Movie, MovieAdapter.ViewHolder>(DIFF_CALLBACK) {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val movie = getItem(position)
 
-        holder.binding.textViewMovie.text = movie.title
+//        holder.binding.textViewMovie.text = movie.title
     }
 
     inner class ViewHolder(val binding: MovieListItemBinding) :
