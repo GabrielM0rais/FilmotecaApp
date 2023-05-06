@@ -31,12 +31,12 @@ class SignUpViewModel @Inject constructor(
                 val userInsertReponse = userRepository.createUser(registratoionViewParams)
 
                 _userInsertSuccess.postValue(userInsertReponse)
-                _loadingCreateUser.postValue(false)
             }
             catch (e: Exception) {
                 println(e.message)
 
                 _userInsertSuccess.postValue(false)
+            } finally {
                 _loadingCreateUser.postValue(false)
             }
         }
@@ -45,7 +45,7 @@ class SignUpViewModel @Inject constructor(
     class SignUpViewModelFactory(private val userRepository: UserRepository):
         ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T  {
-            return SignUpViewModel(userRepository) as T
-        }
+                return SignUpViewModel(userRepository) as T
+            }
     }
 }

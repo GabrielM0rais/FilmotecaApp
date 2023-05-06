@@ -68,9 +68,7 @@ class SignUpFragment : Fragment() {
 
     private fun initObservers() {
         viewModel.loadingCreateUser.observe(viewLifecycleOwner) {
-            println("Loading $it")
             binding.buttonSignUp.isEnabled = !it
-            println("binding.buttonSignUp.isEnabled ${binding.buttonSignUp.isEnabled}")
         }
     }
 

@@ -6,13 +6,27 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.filmotecaapp.R
+import com.example.filmotecaapp.data.db.AppDatabase
 import com.example.filmotecaapp.databinding.FragmentLoginBinding
+import com.example.filmotecaapp.domain.datasource.UserDbDataSource
 import com.example.filmotecaapp.util.navigateWithAnimations
 
 class LoginFragment : Fragment() {
+
+    private val viewModel: LoginViewModel by viewModels(
+        factoryProducer = {
+            val database = AppDatabase.getDatabase(requireContext())
+
+            LoginViewModel.LoginViewModelFactory(
+                userRepository = UserDbDataSource(database.userDao())
+            )
+        }
+    )
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
@@ -27,6 +41,7 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initListners()
+        initObservers()
     }
 
     fun initListners() {
@@ -38,7 +53,22 @@ class LoginFragment : Fragment() {
         }
 
         signIn.setOnClickListener {
-            findNavController().navigateWithAnimations(R.id.movieListFragment)
+            val username: AppCompatEditText = binding.inputLoginUsername
+            val password: AppCompatEditText = binding.inputLoginPassword
+
+            viewModel.login(username.text.toString(), password.text.toString())
+        }
+    }
+
+    private fun initObservers() {
+        viewModel.loadingLogin.observe(viewLifecycleOwner) {
+            binding.buttonLoginSignIn.isEnabled = !it
+        }
+
+        viewModel.user.observe(viewLifecycleOwner) {
+            if (it!= null) {
+                findNavController().navigateWithAnimations(R.id.movieListFragment)
+            }
         }
     }
 
