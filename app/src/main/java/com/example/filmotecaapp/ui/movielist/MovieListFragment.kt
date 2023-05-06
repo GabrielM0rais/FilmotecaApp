@@ -58,15 +58,15 @@ class MovieListFragment : Fragment() {
             findNavController().navigate(R.id.action_movieListFragment_to_popoularMoviesListFragment)
         }
 
-        parentFragmentManager.setFragmentResultListener(
-            Constants.REQUEST_MOVIE_KEY,
-            this
-        ) { _, bundle ->
-            val movie = bundle.getParcelableCompat(Constants.MOVIE_BUNDLE_KEY, Movie::class.java)
-            if (movie != null) {
-                viewModel.insertMovieOnCatalog(movie)
-            }
-        }
+//        parentFragmentManager.setFragmentResultListener(
+//            Constants.REQUEST_MOVIE_KEY,
+//            this
+//        ) { _, bundle ->
+//            val movie = bundle.getParcelableCompat(Constants.MOVIE_BUNDLE_KEY, Movie::class.java)
+//            if (movie != null) {
+//                viewModel.insertMovieOnCatalog(movie)
+//            }
+//        }
     }
 
     private fun initRecycler() {

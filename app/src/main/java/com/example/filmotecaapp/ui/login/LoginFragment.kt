@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.filmotecaapp.R
@@ -29,10 +30,15 @@ class LoginFragment : Fragment() {
     }
 
     fun initListners() {
-        val linearLayout: LinearLayout = binding.signUpTextContainer
+        val signUp: LinearLayout = binding.signUpTextContainer
+        val signIn: AppCompatButton = binding.buttonLoginSignIn
 
-        linearLayout.setOnClickListener {
+        signUp.setOnClickListener {
             findNavController().navigateWithAnimations(R.id.signUpFragment)
+        }
+
+        signIn.setOnClickListener {
+            findNavController().navigateWithAnimations(R.id.movieListFragment)
         }
     }
 

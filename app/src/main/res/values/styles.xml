@@ -17,4 +17,12 @@
         <item name="android:textColor">@color/login_input_hint_color</item>
         <item name="android:textColorHint">@color/login_input_hint_color</item>
     </style>
+
+    <style name="AppEditTextStyleSignUp" parent="Widget.AppCompat.EditText">
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:background">@drawable/edittext_rounded</item>
+        <item name="android:textColor">@color/login_input_hint_color</item>
+        <item name="android:textColorHint">@color/login_input_hint_color</item>
+    </style>
 </resources>
