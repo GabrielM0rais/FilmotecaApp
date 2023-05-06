@@ -4,9 +4,11 @@ import com.example.filmotecaapp.data.model.User
 import com.example.filmotecaapp.domain.model.RegistratoionViewParams
 
 interface UserRepository {
-    fun createUser(registrationViewParams: RegistratoionViewParams)
+    suspend fun createUser(registrationViewParams: RegistratoionViewParams): Boolean
 
-    fun getUser(id: Long): User
+    suspend fun getUser(id: Long): User
 
-    fun login(username: String, password: String): User
+    suspend fun login(username: String, password: String): User
+
+    suspend fun  getUserByName(username: String): User?
 }

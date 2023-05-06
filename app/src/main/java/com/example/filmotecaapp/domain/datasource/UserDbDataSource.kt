@@ -11,18 +11,28 @@ import javax.inject.Inject
 class UserDbDataSource @Inject constructor(
     private val userDao: UserDao
 ): UserRepository {
-    override fun createUser(registrationViewParams: RegistratoionViewParams) {
+    override suspend fun createUser(registrationViewParams: RegistratoionViewParams): Boolean {
         val userEntity = registrationViewParams.toUserEntity()
+        val existingUser = userDao.getUserByName(registrationViewParams.username)
 
-        userDao.saveUser(userEntity)
+        if (existingUser == null) {
+            userDao.saveUser(userEntity)
+
+            return true
+        }
+
+        return false
     }
 
-    override fun getUser(id: Long): User {
+    override suspend fun getUser(id: Long): User {
         return userDao.getUser(id).toUser()
     }
 
-    override fun login(username: String, password: String): User {
+    override suspend fun login(username: String, password: String): User {
         return userDao.login(username, password)
     }
 
+    override suspend fun getUserByName(username: String): User? {
+        return userDao.getUserByName(username)
+    }
 }

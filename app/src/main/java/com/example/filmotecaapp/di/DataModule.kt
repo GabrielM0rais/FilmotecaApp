@@ -1,6 +1,9 @@
 package com.example.filmotecaapp.di
 
+import android.app.Application
 import com.example.filmotecaapp.data.api.MovieApi
+import com.example.filmotecaapp.data.db.AppDatabase
+import com.example.filmotecaapp.data.db.dao.UserDao
 import com.example.filmotecaapp.network.ServiceProvider
 import dagger.Module
 import dagger.Provides
@@ -18,6 +21,12 @@ class DataModule {
         serviceProvider: ServiceProvider
     ): MovieApi {
         return serviceProvider.createService(MovieApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserDao(application: Application): UserDao {
+        return AppDatabase.getDatabase(application).userDao()
     }
 
 }

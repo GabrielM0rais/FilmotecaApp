@@ -1,7 +1,9 @@
 package com.example.filmotecaapp.di
 
 import com.example.filmotecaapp.data.repository.MovieRepositoryImpl
+import com.example.filmotecaapp.domain.datasource.UserDbDataSource
 import com.example.filmotecaapp.domain.repository.MovieRepository
+import com.example.filmotecaapp.domain.repository.UserRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -15,5 +17,10 @@ abstract class DomainModule {
     abstract fun bindMovieRepositoryImpl (
         movieRepositoryImpl: MovieRepositoryImpl
     ) : MovieRepository
+
+    @Binds
+    abstract fun bindUserDbDataSource (
+        userDbDataSource: UserDbDataSource
+    ) : UserRepository
 
 }

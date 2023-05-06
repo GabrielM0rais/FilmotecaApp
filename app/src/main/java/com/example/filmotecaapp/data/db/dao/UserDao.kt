@@ -9,12 +9,15 @@ import com.example.filmotecaapp.data.model.User
 
 @Dao
 interface UserDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun saveUser(user: UserEntity)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun saveUser(user: UserEntity)
 
     @Query("SELECT * FROM user WHERE id = :id")
-    fun getUser(id: Long): UserEntity
+    suspend fun getUser(id: Long): UserEntity
 
     @Query("SELECT * FROM user WHERE username = :username AND password = :password")
-    fun login(username: String, password: String): User
+    suspend fun login(username: String, password: String): User
+
+    @Query("SELECT * FROM user WHERE username = :username")
+    suspend fun getUserByName(username: String): User?
 }

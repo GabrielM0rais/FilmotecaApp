@@ -1,6 +1,10 @@
 package com.example.filmotecaapp.data.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class User(
-    private val id: Long,
-    private val username: String,
-)
+    val id: Long,
+    val username: String,
+): Parcelable
