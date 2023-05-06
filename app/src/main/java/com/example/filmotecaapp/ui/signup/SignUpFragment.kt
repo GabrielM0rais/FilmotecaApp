@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SignUpFragment : Fragment() {
 
-    private val viewmodel: SignUpViewModel by viewModels(
+    private val viewModel: SignUpViewModel by viewModels(
         factoryProducer = {
             val database = AppDatabase.getDatabase(requireContext())
 
@@ -41,6 +41,7 @@ class SignUpFragment : Fragment() {
         binding.inputSingUpPassword.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
 
         initListners()
+        initObservers()
     }
 
     override fun onCreateView(
@@ -61,7 +62,15 @@ class SignUpFragment : Fragment() {
             val username: AppCompatEditText = binding.inputSignUpUsername
             val password: AppCompatEditText = binding.inputSingUpPassword
 
-            viewmodel.createUser(username.text.toString(), password.text.toString())
+            viewModel.createUser(username.text.toString(), password.text.toString())
+        }
+    }
+
+    private fun initObservers() {
+        viewModel.loadingCreateUser.observe(viewLifecycleOwner) {
+            println("Loading $it")
+            binding.buttonSignUp.isEnabled = !it
+            println("binding.buttonSignUp.isEnabled ${binding.buttonSignUp.isEnabled}")
         }
     }
 

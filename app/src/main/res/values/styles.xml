@@ -6,8 +6,8 @@
         <item name="android:background">@color/text_input_background</item>
     </style>
 
-    <style name="AppButton.SignIn">
-        <item name="android:background">@drawable/rounded_corner</item>
+    <style name="AppButton.Default">
+        <item name="android:background">@drawable/button_state_selector</item>
     </style>
 
     <style name="AppEditTextStyle" parent="Widget.AppCompat.EditText">

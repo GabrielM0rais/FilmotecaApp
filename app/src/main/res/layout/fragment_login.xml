@@ -53,12 +53,12 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonLoginSignIn"
-            style="@style/AppButton.SignIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/fragment_vertical_margin"
             android:text="Entrar"
             android:textSize="14sp"
+            style="@style/AppButton.Default"
             app:layout_constraintTop_toBottomOf="@+id/inputLoginPassword" />
 
         <LinearLayout

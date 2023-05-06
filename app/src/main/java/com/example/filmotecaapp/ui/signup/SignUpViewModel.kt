@@ -1,15 +1,12 @@
 package com.example.filmotecaapp.ui.signup
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.filmotecaapp.domain.model.RegistratoionViewParams
 import com.example.filmotecaapp.domain.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@Suppress("UNCHECKED_CAST")
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
     private val userRepository: UserRepository
@@ -17,27 +14,38 @@ class SignUpViewModel @Inject constructor(
 
     private val registratoionViewParams = RegistratoionViewParams(username = "", password = "")
 
+    private val _userInsertSuccess = MutableLiveData<Boolean>()
+    val userInsertSuccess: LiveData<Boolean> = _userInsertSuccess
+
+    private val _loadingCreateUser = MutableLiveData<Boolean>()
+    val loadingCreateUser: LiveData<Boolean> = _loadingCreateUser
+
+
     fun createUser(username: String, password: String) {
         viewModelScope.launch {
             try {
+                _loadingCreateUser.postValue(true)
                 registratoionViewParams.username = username
                 registratoionViewParams.password = password
 
-                val teste = userRepository.createUser(registratoionViewParams)
+                val userInsertReponse = userRepository.createUser(registratoionViewParams)
 
-                println("teste -> $teste")
+                _userInsertSuccess.postValue(userInsertReponse)
+                _loadingCreateUser.postValue(false)
             }
             catch (e: Exception) {
                 println(e.message)
-            }
 
+                _userInsertSuccess.postValue(false)
+                _loadingCreateUser.postValue(false)
+            }
         }
     }
 
     class SignUpViewModelFactory(private val userRepository: UserRepository):
-            ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T  {
-        return SignUpViewModel(userRepository) as T
+        ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T  {
+            return SignUpViewModel(userRepository) as T
         }
     }
 }

@@ -99,7 +99,7 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonSignUp"
-            style="@style/AppButton.SignIn"
+            style="@style/AppButton.Default"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
