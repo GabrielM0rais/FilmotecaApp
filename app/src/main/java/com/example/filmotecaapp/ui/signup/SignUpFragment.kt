@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.filmotecaapp.R
 import com.example.filmotecaapp.databinding.FragmentSignUpBinding
 import com.example.filmotecaapp.ui.MainActivity
@@ -22,6 +23,8 @@ class SignUpFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initListeners()
     }
 
     override fun onCreateView(
@@ -31,6 +34,12 @@ class SignUpFragment : Fragment() {
     ): View {
         _binding = FragmentSignUpBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    fun initListeners() {
+        binding.backButton.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     override fun onDestroy() {
