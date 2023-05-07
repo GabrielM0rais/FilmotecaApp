@@ -11,71 +11,77 @@
     app:cardCornerRadius="16dp"
     app:cardElevation="10dp">
 
-    <!--    <ViewFlipper-->
-    <!--        android:id="@+id/view_flipper"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:padding="16dp">-->
 
-    <!--        <ProgressBar-->
-    <!--            android:id="@+id/progress_bar"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_gravity="center"-->
-    <!--            android:indeterminateTint="@color/color_primary" />-->
-    <!--    </ViewFlipper>-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/MovieImage"
             android:layout_width="150dp"
             android:layout_height="150dp"
+            android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/filmoteca_logo" />
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintStart_toEndOf="@+id/MovieImage"
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/MovieTitle"
                     style="@style/MovieCardTexStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:maxLines="2"
                     android:text="MovieTitle" />
 
                 <TextView
                     android:id="@+id/RateText"
                     style="@style/MovieCardTexStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="RateText" />
+
+
+                <TextView
+                    android:id="@+id/ReleaseDate"
+                    style="@style/MovieCardInfoTexStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="RateText"
-                    android:textAlignment="textEnd" />
+                    android:layout_marginTop="4dp"
+                    android:text="ReleaseDate" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/ReleaseDate"
-                style="@style/MovieCardInfoTexStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="ReleaseDate" />
-
         </LinearLayout>
+
+        <ViewFlipper
+            android:id="@+id/view_flipper"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/MovieImage"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        </ViewFlipper>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

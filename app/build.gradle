@@ -50,6 +50,9 @@ dependencies {
 
     implementation 'com.caverock:androidsvg-aar:1.4'
 
+    // Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
