@@ -1,30 +1,39 @@
-package com.example.filmotecaapp.ui.popularmovielist
+package com.example.filmotecaapp.ui.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.example.filmotecaapp.domain.model.Movie
-import com.example.filmotecaapp.domain.usecase.GetPopularMoviesUseCase
+import com.example.filmotecaapp.domain.repository.MovieRepository
 import com.example.filmotecaapp.util.StateView
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 @HiltViewModel
-class PopularMoviesListViewModel @Inject constructor(
-    private val getPopularMoviesUseCase: GetPopularMoviesUseCase
+class MovieViewModel  @Inject constructor(
+    private val repository: MovieRepository
 ) : ViewModel() {
     private val _popularMovies = MutableLiveData<MutableList<Movie>>()
     val currentPopularMovies: LiveData<MutableList<Movie>> = _popularMovies
     var currentPage: Int = 0
+
+    private val _catalogedMovies = MutableLiveData<MutableList<Movie>>()
+    val currentCatalogedMovies: LiveData<MutableList<Movie>> = _catalogedMovies
+
+    fun insertMovieOnCatalog(movie: Movie) {
+        val currentCatalogedMovieList = _catalogedMovies.value ?: mutableListOf()
+        currentCatalogedMovieList.add(movie)
+        _catalogedMovies.value = currentCatalogedMovieList
+    }
 
     fun getPopularMovies() = liveData(Dispatchers.IO) {
         try {
             emit(StateView.Loading())
             currentPage += 1
 
-            val movies = getPopularMoviesUseCase(currentPage)
+            val movies = repository.getPopularMovies(currentPage)
             val results = movies.results
             val currentPopularMoviesList = _popularMovies.value ?: mutableListOf()
             results.forEach {

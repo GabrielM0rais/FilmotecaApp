@@ -9,11 +9,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.filmotecaapp.R
 import com.example.filmotecaapp.databinding.FragmentMovieListBinding
-import com.example.filmotecaapp.domain.model.Movie
 import com.example.filmotecaapp.ui.movielist.adapter.MovieAdapter
-import com.example.filmotecaapp.util.Constants
+import com.example.filmotecaapp.ui.viewmodel.MovieViewModel
 import com.example.filmotecaapp.util.VerticalSpaceItemDecoration
-import com.example.filmotecaapp.util.getParcelableCompat
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,7 +21,7 @@ class MovieListFragment : Fragment() {
         fun newInstance() = MovieListFragment()
     }
 
-    private val viewModel: MovieListViewModel by viewModels()
+    private val viewModel: MovieViewModel by viewModels()
 
     private var _binding: FragmentMovieListBinding? = null
     private val binding get() = _binding!!

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.filmotecaapp.databinding.FragmentPopoularMoviesBinding
 import com.example.filmotecaapp.ui.popularmovielist.adapter.PopularMoviesAdapter
+import com.example.filmotecaapp.ui.viewmodel.MovieViewModel
 import com.example.filmotecaapp.util.Constants
 import com.example.filmotecaapp.util.StateView
 import com.example.filmotecaapp.util.VerticalSpaceItemDecoration
@@ -24,7 +25,7 @@ class PopoularMoviesListFragment : Fragment() {
         fun newInstance() = PopoularMoviesListFragment()
     }
 
-    private val viewModel: PopularMoviesListViewModel by viewModels()
+    private val viewModel: MovieViewModel by viewModels()
 
     private var _binding: FragmentPopoularMoviesBinding? = null
     private val binding get() = _binding!!
