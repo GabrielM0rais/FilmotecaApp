@@ -27,7 +27,6 @@ class LoginViewModel @Inject constructor(
 
                 if (user == null) {
                     throw Exception("User not found")
-
                 }
 
                 _user.postValue(user)
@@ -39,8 +38,8 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    class LoginViewModelFactory(private val userRepository: UserRepository):
-    ViewModelProvider.Factory {
+    class LoginViewModelFactory(private val userRepository: UserRepository) :
+        ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return LoginViewModel(userRepository) as T
         }

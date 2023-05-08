@@ -1,10 +1,9 @@
 package com.example.filmotecaapp.ui.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
+import androidx.lifecycle.*
+import com.example.filmotecaapp.data.db.AppDatabase
 import com.example.filmotecaapp.domain.model.Movie
+import com.example.filmotecaapp.domain.repository.MovieDbRepository
 import com.example.filmotecaapp.domain.repository.MovieRepository
 import com.example.filmotecaapp.util.StateView
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,9 +11,14 @@ import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 @HiltViewModel
-class MovieViewModel  @Inject constructor(
-    private val repository: MovieRepository
+class MovieViewModel @Inject constructor(
+    private val repository: MovieRepository,
+    private val database: AppDatabase,
+    private val movieDbRepository: MovieDbRepository
 ) : ViewModel() {
+
+    private val movieDao = database.movieDao()
+
     private val _popularMovies = MutableLiveData<MutableList<Movie>>()
     val currentPopularMovies: LiveData<MutableList<Movie>> = _popularMovies
     var currentPage: Int = 0
@@ -47,4 +51,5 @@ class MovieViewModel  @Inject constructor(
             emit(StateView.Error(message = e.message))
         }
     }
+
 }

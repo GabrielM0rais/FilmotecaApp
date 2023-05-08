@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.filmotecaapp.R
+import com.example.filmotecaapp.data.db.AppDatabase
 import com.example.filmotecaapp.databinding.FragmentMovieListBinding
 import com.example.filmotecaapp.ui.movielist.adapter.MovieAdapter
 import com.example.filmotecaapp.ui.viewmodel.MovieViewModel

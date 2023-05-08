@@ -9,11 +9,11 @@ import com.example.filmotecaapp.data.db.MovieEntity
 @Dao
 interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun saveMovie(movie: MovieEntity)
+    suspend fun saveMovie(movie: MovieEntity)
 
     @Query("SELECT * FROM movie WHERE id = :id")
-    fun getMovie(id: Int): MovieEntity
+    suspend fun getMovie(id: Int): MovieEntity
 
     @Query("SELECT * FROM movie where user_id = :user_id")
-    fun getAllMovies(user_id: Long): List<MovieEntity>
+    suspend fun getAllMovies(user_id: Long): List<MovieEntity>
 }

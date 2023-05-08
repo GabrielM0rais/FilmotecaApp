@@ -43,7 +43,6 @@ class PopularMoviesAdapter : ListAdapter<Movie, PopularMoviesAdapter.ViewHolder>
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val movie = getItem(position)
-        println("movie: ${movie.getImageSource()}")
 
 //        holder.binding.textViewMovie.text = movie.title
 
