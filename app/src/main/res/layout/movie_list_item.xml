@@ -11,8 +11,6 @@
     app:cardCornerRadius="16dp"
     app:cardElevation="10dp">
 
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -20,7 +18,7 @@
         <ImageView
             android:id="@+id/MovieImage"
             android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_height="0dp"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +30,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="16dp"
+            android:paddingHorizontal="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/MovieImage"
             app:layout_constraintTop_toTopOf="parent">
@@ -74,11 +72,38 @@
             android:id="@+id/view_flipper"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:padding="16dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/MovieImage"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+            <Button
+                android:id="@+id/buttonAddMovieToMyList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/primary.200"
+                android:text="Adicionar a lista"
+                android:textSize="8sp" />
+
+            <Button
+                android:id="@+id/buttonAddMovieToFavourite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/primary.200"
+                android:drawableLeft="@drawable/heart_empty"
+                android:text="Adicionar aos favoritos"
+                android:textSize="8sp" />
+
+            <Button
+                android:id="@+id/buttonRemoveMovieToMyList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/primary.200"
+                android:drawableLeft="@drawable/heart_full"
+                android:text="Remover da lista"
+                android:textSize="8sp" />
 
         </ViewFlipper>
 
