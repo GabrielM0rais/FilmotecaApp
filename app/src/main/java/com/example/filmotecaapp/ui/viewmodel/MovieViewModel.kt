@@ -2,6 +2,7 @@ package com.example.filmotecaapp.ui.viewmodel
 
 import androidx.lifecycle.*
 import com.example.filmotecaapp.data.db.AppDatabase
+import com.example.filmotecaapp.data.model.User
 import com.example.filmotecaapp.domain.model.Movie
 import com.example.filmotecaapp.domain.repository.MovieDbRepository
 import com.example.filmotecaapp.domain.repository.MovieRepository
@@ -19,17 +20,26 @@ class MovieViewModel @Inject constructor(
 
     private val movieDao = database.movieDao()
 
+    var currentPage: Int = 0
+
+
     private val _popularMovies = MutableLiveData<MutableList<Movie>>()
     val currentPopularMovies: LiveData<MutableList<Movie>> = _popularMovies
-    var currentPage: Int = 0
 
     private val _catalogedMovies = MutableLiveData<MutableList<Movie>>()
     val currentCatalogedMovies: LiveData<MutableList<Movie>> = _catalogedMovies
+
+    private val _user = MutableLiveData<User>()
+    val currentUser: LiveData<User> = _user
 
     fun insertMovieOnCatalog(movie: Movie) {
         val currentCatalogedMovieList = _catalogedMovies.value ?: mutableListOf()
         currentCatalogedMovieList.add(movie)
         _catalogedMovies.value = currentCatalogedMovieList
+    }
+
+    fun setUser(user: User) {
+        _user.value = user
     }
 
     fun getPopularMovies() = liveData(Dispatchers.IO) {

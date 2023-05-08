@@ -9,10 +9,12 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.filmotecaapp.R
 import com.example.filmotecaapp.data.db.AppDatabase
+import com.example.filmotecaapp.data.model.User
 import com.example.filmotecaapp.databinding.FragmentMovieListBinding
 import com.example.filmotecaapp.ui.movielist.adapter.MovieAdapter
 import com.example.filmotecaapp.ui.viewmodel.MovieViewModel
 import com.example.filmotecaapp.util.VerticalSpaceItemDecoration
+import com.example.filmotecaapp.util.getParcelableCompat
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -57,15 +59,15 @@ class MovieListFragment : Fragment() {
             findNavController().navigate(R.id.action_movieListFragment_to_popoularMoviesListFragment)
         }
 
-//        parentFragmentManager.setFragmentResultListener(
-//            Constants.REQUEST_MOVIE_KEY,
-//            this
-//        ) { _, bundle ->
-//            val movie = bundle.getParcelableCompat(Constants.MOVIE_BUNDLE_KEY, Movie::class.java)
-//            if (movie != null) {
-//                viewModel.insertMovieOnCatalog(movie)
-//            }
-//        }
+        parentFragmentManager.setFragmentResultListener(
+            "GetUser",
+            this
+        ) { _, bundle ->
+            val user = bundle.getParcelableCompat("User", User::class.java)
+            if (user != null) {
+                viewModel.setUser(user)
+            }
+        }
     }
 
     private fun initRecycler() {
