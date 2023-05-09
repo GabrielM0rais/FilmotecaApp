@@ -2,6 +2,7 @@ package com.example.filmotecaapp.ui.viewmodel
 
 import androidx.lifecycle.*
 import com.example.filmotecaapp.data.db.AppDatabase
+import com.example.filmotecaapp.data.db.MovieEntity
 import com.example.filmotecaapp.data.model.User
 import com.example.filmotecaapp.domain.model.Movie
 import com.example.filmotecaapp.domain.repository.MovieDbRepository
@@ -9,6 +10,7 @@ import com.example.filmotecaapp.domain.repository.MovieRepository
 import com.example.filmotecaapp.util.StateView
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,6 +24,8 @@ class MovieViewModel @Inject constructor(
 
     var currentPage: Int = 0
 
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> = _loading
 
     private val _popularMovies = MutableLiveData<MutableList<Movie>>()
     val currentPopularMovies: LiveData<MutableList<Movie>> = _popularMovies
@@ -62,4 +66,22 @@ class MovieViewModel @Inject constructor(
         }
     }
 
+    fun setMovieOnDatabase(movie: Movie) {
+        viewModelScope.launch {
+            try {
+                _loading.postValue(true)
+
+                val newMovie = movie.toMovieEntity(user_id = currentUser.value?.id ?: 0)
+                val movieWithUserId = movie.toMovieWithUserId(user_id = currentUser.value?.id ?: 0)
+
+                insertMovieOnCatalog(movieWithUserId)
+
+                movieDbRepository.saveMovie(newMovie)
+            } catch (e: Exception) {
+                println(e.message)
+            } finally {
+                _loading.postValue(false)
+            }
+        }
+    }
 }

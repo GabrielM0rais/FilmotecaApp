@@ -50,6 +50,8 @@ class MovieListFragment : Fragment() {
 
     private fun initObservers() {
         viewModel.currentCatalogedMovies.observe(viewLifecycleOwner) { movies ->
+            println("movies -> $movies")
+
             movieAdapter.submitList(movies)
         }
     }
@@ -71,7 +73,7 @@ class MovieListFragment : Fragment() {
     }
 
     private fun initRecycler() {
-        movieAdapter = MovieAdapter()
+        movieAdapter = MovieAdapter(viewModel)
 
         val verticalSpaceItemDecoration = VerticalSpaceItemDecoration(
             verticalSpaceHeight = 8,

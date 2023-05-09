@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.filmotecaapp.R
 import com.example.filmotecaapp.databinding.FragmentPopoularMoviesBinding
 import com.example.filmotecaapp.ui.popularmovielist.adapter.PopularMoviesAdapter
 import com.example.filmotecaapp.ui.viewmodel.MovieViewModel
@@ -78,11 +79,10 @@ class PopoularMoviesListFragment : Fragment() {
                 }
             }
         })
-
     }
 
     private fun initRecycler() {
-        popularMoviesAdapter = PopularMoviesAdapter()
+        popularMoviesAdapter = PopularMoviesAdapter(viewModel)
 
         val verticalSpaceItemDecoration = VerticalSpaceItemDecoration(
             verticalSpaceHeight = 8,
