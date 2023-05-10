@@ -1,8 +1,12 @@
 package com.example.filmotecaapp.ui.signup
 
 import androidx.lifecycle.*
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import androidx.navigation.fragment.findNavController
+import com.example.filmotecaapp.R
 import com.example.filmotecaapp.domain.model.RegistratoionViewParams
 import com.example.filmotecaapp.domain.repository.UserRepository
+import com.example.filmotecaapp.util.navigateWithAnimations
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

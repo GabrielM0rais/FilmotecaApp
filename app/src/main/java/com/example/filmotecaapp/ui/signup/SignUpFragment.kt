@@ -1,5 +1,6 @@
 package com.example.filmotecaapp.ui.signup
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.text.InputType
 import android.view.LayoutInflater
@@ -64,7 +65,27 @@ class SignUpFragment : Fragment() {
             val username: AppCompatEditText = binding.inputSignUpUsername
             val password: AppCompatEditText = binding.inputSingUpPassword
 
-            viewModel.createUser(username.text.toString(), password.text.toString())
+            if (username.length() < 1) {
+                val builder = AlertDialog.Builder(requireContext())
+                builder.setTitle("Atenção")
+                    .setMessage(
+                        "Seu nome de usuario não pode ser nulo."
+                    )
+                    .setPositiveButton("OK") { _, _ -> }
+                    .show()
+            } else if (password.length() < 6) {
+                val builder = AlertDialog.Builder(requireContext())
+                builder.setTitle("Atenção")
+                    .setMessage(
+                        "Sua senha precisa ter no minimo 6 digitos"
+                    )
+                    .setPositiveButton("OK") { _, _ -> }
+                    .show()
+
+
+            } else {
+                viewModel.createUser(username.text.toString(), password.text.toString())
+            }
         }
     }
 
@@ -73,8 +94,18 @@ class SignUpFragment : Fragment() {
             binding.buttonSignUp.isEnabled = !it
         }
 
-        binding.buttonSignUp.setOnClickListener {
-            findNavController().navigateWithAnimations(R.id.welcomeFragment)
+        viewModel.userInsertSuccess.observe(viewLifecycleOwner) {
+            if(it) {
+                findNavController().navigateWithAnimations(R.id.welcomeFragment)
+            } else if(!it) {
+                val builder = AlertDialog.Builder(requireContext())
+                builder.setTitle("Atenção")
+                    .setMessage(
+                        "Nome de usuario em uso. Tente outro."
+                    )
+                    .setPositiveButton("OK") { _, _ -> }
+                    .show()
+            }
         }
     }
 

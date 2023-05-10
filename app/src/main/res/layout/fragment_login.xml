@@ -33,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:hint="Username"
+
             android:imeOptions="actionNext"
             android:inputType="text"
             app:layout_constraintTop_toBottomOf="@+id/filmotecaLogo"

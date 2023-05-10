@@ -1,6 +1,8 @@
 package com.example.filmotecaapp.ui.login
 
+import android.app.AlertDialog
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,6 +43,9 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.inputLoginPassword.inputType =
+            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+
         initListners()
         initObservers()
     }
@@ -57,7 +62,27 @@ class LoginFragment : Fragment() {
             val username: AppCompatEditText = binding.inputLoginUsername
             val password: AppCompatEditText = binding.inputLoginPassword
 
-            viewModel.login(username.text.toString(), password.text.toString())
+            if (username.length() < 1) {
+                val builder = AlertDialog.Builder(requireContext())
+                builder.setTitle("Atenção")
+                    .setMessage(
+                        "Seu nome de usuario não pode ser nulo."
+                    )
+                    .setPositiveButton("OK") { _, _ -> }
+                    .show()
+            } else if (password.length() < 6) {
+                val builder = AlertDialog.Builder(requireContext())
+                builder.setTitle("Atenção")
+                    .setMessage(
+                        "Sua senha precisa ter no minimo 6 digitos"
+                    )
+                    .setPositiveButton("OK") { _, _ -> }
+                    .show()
+
+
+            } else {
+                viewModel.login(username.text.toString(), password.text.toString())
+            }
         }
     }
 
