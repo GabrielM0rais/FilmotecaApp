@@ -133,7 +133,8 @@ class MovieViewModel @Inject constructor(
 
                 val movieToEntity = movie.toMovieFavourite(favourite)
 
-                insertMovieOnCatalog(movie)
+                movieDbRepository.saveMovie(movieToEntity)
+                getAllMovies()
             } catch (e: Exception) {
                 println("error handleMovieOnFavorite -> ${e.message}")
             } finally {
