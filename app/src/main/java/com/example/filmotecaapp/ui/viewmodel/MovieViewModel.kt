@@ -31,7 +31,7 @@ class MovieViewModel @Inject constructor(
     val currentCatalogedMovies: LiveData<MutableList<Movie>> = _catalogedMovies
 
     private val _user = MutableLiveData<User>()
-    val currentUser = _user
+    val currentUser: LiveData<User> = _user
 
     fun setUser(user: User) {
         _user.value = user
@@ -86,11 +86,12 @@ class MovieViewModel @Inject constructor(
         }
     }
 
-    fun insertMovieOnCatalog(movie: Movie) {
+    private fun insertMovieOnCatalog(movie: Movie) {
         viewModelScope.launch {
             try {
                 val currentCatalogedMovieList = _catalogedMovies.value ?: mutableListOf()
                 currentCatalogedMovieList.add(movie)
+
                 _catalogedMovies.postValue(currentCatalogedMovieList)
             } catch (e: Exception) {
                 println("error inserting $e")
