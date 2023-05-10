@@ -9,10 +9,12 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.filmotecaapp.R
 import com.example.filmotecaapp.data.db.AppDatabase
 import com.example.filmotecaapp.databinding.FragmentSignUpBinding
 import com.example.filmotecaapp.domain.datasource.UserDbDataSource
 import com.example.filmotecaapp.ui.MainActivity
+import com.example.filmotecaapp.util.navigateWithAnimations
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -69,6 +71,10 @@ class SignUpFragment : Fragment() {
     private fun initObservers() {
         viewModel.loadingCreateUser.observe(viewLifecycleOwner) {
             binding.buttonSignUp.isEnabled = !it
+        }
+
+        binding.buttonSignUp.setOnClickListener {
+            findNavController().navigateWithAnimations(R.id.welcomeFragment)
         }
     }
 

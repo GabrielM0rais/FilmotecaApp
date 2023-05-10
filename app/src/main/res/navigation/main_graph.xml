@@ -46,7 +46,11 @@
             android:id="@+id/signUpFragment"
             android:name="com.example.filmotecaapp.ui.signup.SignUpFragment"
             android:label="fragment_sign_up"
-            tools:layout="@layout/fragment_sign_up" />
+            tools:layout="@layout/fragment_sign_up" >
+            <action
+                android:id="@+id/action_signUpFragment_to_welcomeFragment"
+                app:destination="@id/welcomeFragment" />
+        </fragment>
         <fragment
             android:id="@+id/loginFragment"
             android:name="com.example.filmotecaapp.ui.login.LoginFragment"
@@ -59,4 +63,12 @@
                 android:id="@+id/action_loginFragment_to_signUpFragment"
                 app:destination="@id/signUpFragment" />
         </fragment>
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.example.filmotecaapp.ui.welcome.WelcomeFragment"
+        android:label="WelcomeFragment" >
+        <action
+            android:id="@+id/action_welcomeFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 </navigation>
