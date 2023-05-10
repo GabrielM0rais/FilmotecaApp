@@ -99,6 +99,21 @@ class MovieViewModel @Inject constructor(
         }
     }
 
+    fun removeMovieOfCatalog(movieId: Int) {
+        viewModelScope.launch {
+            try {
+                _loading.postValue(true)
+
+                movieDao.deleteMovie(movieId)
+                getAllMovies()
+            } catch (e: Exception) {
+                println("error removing $e")
+            } finally {
+                _loading.postValue(false)
+            }
+        }
+    }
+
     fun setMovieOnDatabase(movie: Movie) {
         viewModelScope.launch {
             try {

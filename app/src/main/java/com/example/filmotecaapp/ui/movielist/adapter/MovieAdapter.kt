@@ -1,7 +1,11 @@
 package com.example.filmotecaapp.ui.movielist.adapter
 
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -63,6 +67,21 @@ class MovieAdapter(private val viewModel: MovieViewModel) :
 
         holder.binding.buttonRemoveMovieToMyList.setOnClickListener {
             viewModel.handleMovieOnFavorite(movie, false)
+        }
+
+        holder.binding.movieCardView.setOnLongClickListener {
+            val builder = AlertDialog.Builder(holder.itemView.context)
+            builder.setTitle("Removendo filme")
+                .setMessage(
+                    "Tem certeza que deseja retirar do seu catalogo de filme?"
+                )
+                .setPositiveButton("OK") { _, _ ->
+                    viewModel.removeMovieOfCatalog(movie.id)
+                }
+                .setNegativeButton("Cancelar") { _, _ -> }
+                .show()
+
+            true
         }
     }
 
