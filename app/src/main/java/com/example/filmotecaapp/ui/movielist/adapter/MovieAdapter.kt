@@ -12,7 +12,8 @@ import com.example.filmotecaapp.domain.model.Movie
 import com.example.filmotecaapp.ui.viewmodel.MovieViewModel
 import com.squareup.picasso.Picasso
 
-class MovieAdapter(private val viewModel: MovieViewModel): ListAdapter<Movie, MovieAdapter.ViewHolder>(DIFF_CALLBACK) {
+class MovieAdapter(private val viewModel: MovieViewModel) :
+    ListAdapter<Movie, MovieAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Movie>() {
@@ -53,9 +54,9 @@ class MovieAdapter(private val viewModel: MovieViewModel): ListAdapter<Movie, Mo
         holder.binding.RateText.text = movie.vote_average.toString()
         holder.binding.ReleaseDate.text = movie.release_date
 
-        if(movie.favorite) {
+        if (movie.favorite) {
             holder.binding.viewFlipper.displayedChild = 2
-        } else if(!movie.favorite){
+        } else if (!movie.favorite) {
             holder.binding.viewFlipper.displayedChild = 1
         }
     }

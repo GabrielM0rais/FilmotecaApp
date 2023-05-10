@@ -81,13 +81,9 @@ class MovieViewModel @Inject constructor(
                     return@launch
                 }
 
-                println("currentUser.value -> ${currentUser.value?.id!!}")
-
                 val results = movieDao.getAllMovies(1)
 
-                println("result ${results}")
-
-                val currentCatalogedMovieList = _catalogedMovies.value ?: mutableListOf()
+                val currentCatalogedMovieList: MutableList<Movie> = mutableListOf()
                 results.forEach {
                     currentCatalogedMovieList.add(it.toMovie())
                 }
@@ -110,8 +106,6 @@ class MovieViewModel @Inject constructor(
 
                 _loading.postValue(true)
                 val movieToEntity = movie.toMovieEntity(1)
-
-                println("movieWithUserId $movieToEntity")
 
                 insertMovieOnCatalog(movie)
                 movieDbRepository.saveMovie(movieToEntity)
