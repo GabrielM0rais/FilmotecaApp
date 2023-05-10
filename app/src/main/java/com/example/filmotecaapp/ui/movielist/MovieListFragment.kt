@@ -49,10 +49,10 @@ class MovieListFragment : Fragment() {
     }
 
     private fun initObservers() {
-        viewModel.currentCatalogedMovies.observe(viewLifecycleOwner) { movies ->
-            println("movies -> $movies")
+        viewModel.getAllMovies()
 
-            movieAdapter.submitList(movies)
+        viewModel.currentCatalogedMovies.observe(viewLifecycleOwner) { popularMovies ->
+            movieAdapter.submitList(popularMovies)
         }
     }
 
@@ -68,6 +68,8 @@ class MovieListFragment : Fragment() {
             val user = bundle.getParcelableCompat("User", User::class.java)
             if (user != null) {
                 viewModel.setUser(user)
+                viewModel.getAllMovies()
+
             }
         }
     }

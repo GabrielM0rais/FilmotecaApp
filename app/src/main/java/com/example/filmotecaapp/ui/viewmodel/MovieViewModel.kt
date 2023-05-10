@@ -34,51 +34,89 @@ class MovieViewModel @Inject constructor(
     val currentCatalogedMovies: LiveData<MutableList<Movie>> = _catalogedMovies
 
     private val _user = MutableLiveData<User>()
-    val currentUser: LiveData<User> = _user
+    val currentUser = _user
+
 
     fun insertMovieOnCatalog(movie: Movie) {
-        val currentCatalogedMovieList = _catalogedMovies.value ?: mutableListOf()
-        currentCatalogedMovieList.add(movie)
-        _catalogedMovies.value = currentCatalogedMovieList
+        viewModelScope.launch {
+            try {
+                val currentCatalogedMovieList = _catalogedMovies.value ?: mutableListOf()
+                currentCatalogedMovieList.add(movie)
+                _catalogedMovies.postValue(currentCatalogedMovieList)
+            } catch (e: Exception) {
+                println("error inserting $e")
+            }
+        }
     }
 
     fun setUser(user: User) {
         _user.value = user
     }
 
-    fun getPopularMovies() = liveData(Dispatchers.IO) {
-        try {
-            emit(StateView.Loading())
-            currentPage += 1
+    fun getPopularMovies() {
+        viewModelScope.launch {
+            try {
+                currentPage += 1
 
-            val movies = repository.getPopularMovies(currentPage)
-            val results = movies.results
-            val currentPopularMoviesList = _popularMovies.value ?: mutableListOf()
-            results.forEach {
-                currentPopularMoviesList.add(it)
+                val movies = repository.getPopularMovies(currentPage)
+                val results = movies.results
+                val currentPopularMoviesList = _popularMovies.value ?: mutableListOf()
+                results.forEach {
+                    currentPopularMoviesList.add(it)
+                }
+                _popularMovies.postValue(currentPopularMoviesList)
+            } catch (e: Exception) {
+                println(e.message)
+            } finally {
+                _loading.postValue(false)
             }
-            _popularMovies.postValue(currentPopularMoviesList)
+        }
+    }
 
-            emit(StateView.Success(movies.results))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            emit(StateView.Error(message = e.message))
+    fun getAllMovies() {
+        viewModelScope.launch {
+            try {
+                _loading.postValue(true)
+                if (currentUser == null) {
+                    return@launch
+                }
+
+                println("currentUser.value -> ${currentUser.value?.id!!}")
+
+                val results = movieDao.getAllMovies(1)
+
+                println("result ${results}")
+
+                val currentCatalogedMovieList = _catalogedMovies.value ?: mutableListOf()
+                results.forEach {
+                    currentCatalogedMovieList.add(it.toMovie())
+                }
+
+                _catalogedMovies.postValue(currentCatalogedMovieList)
+            } catch (e: Exception) {
+                println("error all movies -> ${e}")
+            } finally {
+                _loading.postValue(false)
+            }
         }
     }
 
     fun setMovieOnDatabase(movie: Movie) {
         viewModelScope.launch {
             try {
+                if (currentUser == null) {
+                    return@launch
+                }
+
                 _loading.postValue(true)
+                val movieToEntity = movie.toMovieEntity(1)
 
-                val newMovie = movie.toMovieEntity(user_id = currentUser.value?.id ?: 0)
-                val movieWithUserId = movie.toMovieWithUserId(user_id = currentUser.value?.id ?: 0)
+                println("movieWithUserId $movieToEntity")
 
-                insertMovieOnCatalog(movieWithUserId)
-
-                movieDbRepository.saveMovie(newMovie)
+                insertMovieOnCatalog(movie)
+                movieDbRepository.saveMovie(movieToEntity)
             } catch (e: Exception) {
-                println(e.message)
+                println("error save on database -> ${e.message}")
             } finally {
                 _loading.postValue(false)
             }

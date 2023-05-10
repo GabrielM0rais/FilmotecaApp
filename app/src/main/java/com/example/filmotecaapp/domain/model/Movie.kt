@@ -12,14 +12,14 @@ data class Movie (
     val release_date: String,
     val poster_path: String,
     val vote_average: Double,
-    val user_id: Long?,
-    val favorite: Boolean?
+    val user_id: Long,
+    val favorite: Boolean
 ): Parcelable {
     fun getImageSource(): String {
         return "https://image.tmdb.org/t/p/original${poster_path}"
     }
 
-    fun toMovieEntity(user_id: Long): MovieEntity{
+    fun toMovieEntity(userId: Long): MovieEntity{
         return MovieEntity(
             id = id,
             title = title,
@@ -28,19 +28,7 @@ data class Movie (
             poster_path = poster_path,
             vote_average = vote_average,
             favorite = false,
-            user_Id = user_id)
-    }
-
-    fun toMovieWithUserId(user_id: Long): Movie {
-        return Movie(
-            id = id,
-            title = title,
-            overview = overview,
-            release_date = release_date,
-            poster_path = poster_path,
-            vote_average = vote_average,
-            favorite = false,
-            user_id = user_id
+            user_Id = userId
         )
     }
 }

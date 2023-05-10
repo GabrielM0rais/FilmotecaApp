@@ -97,23 +97,7 @@ class PopoularMoviesListFragment : Fragment() {
     }
 
     private fun getPopularMovies() {
-        viewModel.getPopularMovies().observe(viewLifecycleOwner) { stateView ->
-            when (stateView) {
-                is StateView.Loading -> {
-
-                }
-                is StateView.Success -> {
-                    popularMoviesAdapter.notifyDataSetChanged()
-//                    parentFragmentManager.setFragmentResult(
-//                        Constants.REQUEST_MOVIE_KEY,
-//                        bundleOf(Pair(Constants.MOVIE_BUNDLE_KEY, stateView.data?.get(0)))
-//                    )
-                }
-                is StateView.Error -> {
-
-                }
-            }
-        }
+        viewModel.getPopularMovies()
     }
 
     override fun onDestroyView() {
