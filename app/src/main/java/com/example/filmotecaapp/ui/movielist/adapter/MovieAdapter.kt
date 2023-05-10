@@ -52,6 +52,12 @@ class MovieAdapter(private val viewModel: MovieViewModel): ListAdapter<Movie, Mo
         holder.binding.MovieTitle.text = movie.title
         holder.binding.RateText.text = movie.vote_average.toString()
         holder.binding.ReleaseDate.text = movie.release_date
+
+        if(movie.favorite) {
+            holder.binding.viewFlipper.displayedChild = 2
+        } else if(!movie.favorite){
+            holder.binding.viewFlipper.displayedChild = 1
+        }
     }
 
     inner class ViewHolder(val binding: MovieListItemBinding) :
