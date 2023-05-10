@@ -5,7 +5,7 @@ import com.example.filmotecaapp.data.db.MovieEntity
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Movie (
+data class Movie(
     val id: Int,
     val title: String,
     val overview: String,
@@ -14,12 +14,12 @@ data class Movie (
     val vote_average: Double,
     val user_id: Long,
     val favorite: Boolean
-): Parcelable {
+) : Parcelable {
     fun getImageSource(): String {
         return "https://image.tmdb.org/t/p/original${poster_path}"
     }
 
-    fun toMovieEntity(userId: Long): MovieEntity{
+    fun toMovieEntity(userId: Long): MovieEntity {
         return MovieEntity(
             id = this.id,
             title = this.title,
@@ -29,6 +29,19 @@ data class Movie (
             vote_average = this.vote_average,
             favorite = this.favorite,
             user_Id = userId
+        )
+    }
+
+    fun toMovieFavourite(favorite: Boolean): MovieEntity {
+        return MovieEntity(
+            id = this.id,
+            title = this.title,
+            overview = this.overview,
+            release_date = this.release_date,
+            poster_path = this.poster_path,
+            vote_average = this.vote_average,
+            favorite = favorite,
+            user_Id = this.user_id
         )
     }
 }

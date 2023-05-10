@@ -2,14 +2,11 @@ package com.example.filmotecaapp.ui.viewmodel
 
 import androidx.lifecycle.*
 import com.example.filmotecaapp.data.db.AppDatabase
-import com.example.filmotecaapp.data.db.MovieEntity
 import com.example.filmotecaapp.data.model.User
 import com.example.filmotecaapp.domain.model.Movie
 import com.example.filmotecaapp.domain.repository.MovieDbRepository
 import com.example.filmotecaapp.domain.repository.MovieRepository
-import com.example.filmotecaapp.util.StateView
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -35,19 +32,6 @@ class MovieViewModel @Inject constructor(
 
     private val _user = MutableLiveData<User>()
     val currentUser = _user
-
-
-    fun insertMovieOnCatalog(movie: Movie) {
-        viewModelScope.launch {
-            try {
-                val currentCatalogedMovieList = _catalogedMovies.value ?: mutableListOf()
-                currentCatalogedMovieList.add(movie)
-                _catalogedMovies.postValue(currentCatalogedMovieList)
-            } catch (e: Exception) {
-                println("error inserting $e")
-            }
-        }
-    }
 
     fun setUser(user: User) {
         _user.value = user
@@ -86,8 +70,6 @@ class MovieViewModel @Inject constructor(
                     return@launch
                 }
 
-                println("currentUser.value?.id!! ${currentUser.value?.id!!}")
-
                 val results = movieDao.getAllMovies(currentUser.value?.id!!)
 
                 val currentCatalogedMovieList: MutableList<Movie> = mutableListOf()
@@ -104,6 +86,18 @@ class MovieViewModel @Inject constructor(
         }
     }
 
+    fun insertMovieOnCatalog(movie: Movie) {
+        viewModelScope.launch {
+            try {
+                val currentCatalogedMovieList = _catalogedMovies.value ?: mutableListOf()
+                currentCatalogedMovieList.add(movie)
+                _catalogedMovies.postValue(currentCatalogedMovieList)
+            } catch (e: Exception) {
+                println("error inserting $e")
+            }
+        }
+    }
+
     fun setMovieOnDatabase(movie: Movie) {
         viewModelScope.launch {
             try {
@@ -112,16 +106,36 @@ class MovieViewModel @Inject constructor(
                     return@launch
                 }
 
-                println("currentUser.value?.id!! ${currentUser.value?.id!!}")
-
                 val movieToEntity = movie.toMovieEntity(currentUser.value?.id!!)
+                val currentPopularMoviesList = _popularMovies.value ?: mutableListOf()
 
-                println("movieToEntity ${movieToEntity}")
+                val currentPopularMoviesListFiltered = currentPopularMoviesList.filter { it.id != movie.id }
 
                 insertMovieOnCatalog(movie)
+                _catalogedMovies.postValue(currentPopularMoviesList)
+                _popularMovies.postValue(currentPopularMoviesListFiltered as MutableList<Movie>?)
                 movieDbRepository.saveMovie(movieToEntity)
             } catch (e: Exception) {
                 println("error save on database -> ${e.message}")
+            } finally {
+                _loading.postValue(false)
+            }
+        }
+    }
+
+    fun handleMovieOnFavorite(movie: Movie, favourite: Boolean) {
+        viewModelScope.launch {
+            try {
+                _loading.postValue(true)
+                if (currentUser.value == null) {
+                    return@launch
+                }
+
+                val movieToEntity = movie.toMovieFavourite(favourite)
+
+                insertMovieOnCatalog(movie)
+            } catch (e: Exception) {
+                println("error handleMovieOnFavorite -> ${e.message}")
             } finally {
                 _loading.postValue(false)
             }

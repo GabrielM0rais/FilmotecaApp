@@ -56,6 +56,14 @@ class MovieAdapter(private val viewModel: MovieViewModel) :
         } else if (!movie.favorite) {
             holder.binding.viewFlipper.displayedChild = 1
         }
+
+        holder.binding.buttonAddMovieToFavourite.setOnClickListener {
+            viewModel.handleMovieOnFavorite(movie, true)
+        }
+
+        holder.binding.buttonRemoveMovieToMyList.setOnClickListener {
+            viewModel.handleMovieOnFavorite(movie, false)
+        }
     }
 
     inner class ViewHolder(val binding: MovieListItemBinding) :
