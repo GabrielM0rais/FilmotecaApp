@@ -61,9 +61,14 @@ class MovieViewModel @Inject constructor(
                 val movies = repository.getPopularMovies(currentPage)
                 val results = movies.results
                 val currentPopularMoviesList = _popularMovies.value ?: mutableListOf()
+                val currentCatalogedMoviesList = currentCatalogedMovies.value ?: mutableListOf()
+                val currentCatalogedMoviesIdList = currentCatalogedMoviesList.map { it.id }
                 results.forEach {
-                    currentPopularMoviesList.add(it)
+                    if (it.id !in currentCatalogedMoviesIdList) {
+                        currentPopularMoviesList.add(it)
+                    }
                 }
+
                 _popularMovies.postValue(currentPopularMoviesList)
             } catch (e: Exception) {
                 println(e.message)
