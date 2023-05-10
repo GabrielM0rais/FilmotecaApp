@@ -21,14 +21,14 @@ data class Movie (
 
     fun toMovieEntity(userId: Long): MovieEntity{
         return MovieEntity(
-            id = id,
-            title = title,
-            overview = overview,
-            release_date = release_date,
-            poster_path = poster_path,
-            vote_average = vote_average,
-            favorite = false,
-            user_Id = userId
+            id = this.id,
+            title = this.title,
+            overview = this.overview,
+            release_date = this.release_date,
+            poster_path = this.poster_path,
+            vote_average = this.vote_average,
+            favorite = this.favorite,
+            user_Id = this.user_id
         )
     }
 }

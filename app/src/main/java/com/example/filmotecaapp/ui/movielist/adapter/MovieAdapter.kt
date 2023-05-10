@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.filmotecaapp.R
-import com.example.filmotecaapp.data.db.MovieEntity
 import com.example.filmotecaapp.databinding.MovieListItemBinding
 import com.example.filmotecaapp.domain.model.Movie
 import com.example.filmotecaapp.ui.viewmodel.MovieViewModel
@@ -45,8 +44,6 @@ class MovieAdapter(private val viewModel: MovieViewModel) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val movie = getItem(position)
-
-        println("onBinding -> $movie")
 
         Picasso.get().load(movie.getImageSource()).placeholder(R.drawable.filmoteca_logo)
             .error(R.drawable.filmoteca_logo).into(holder.binding.MovieImage)
