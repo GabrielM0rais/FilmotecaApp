@@ -77,11 +77,13 @@ class MovieViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 _loading.postValue(true)
-                if (currentUser == null) {
+                if (currentUser.value == null) {
                     return@launch
                 }
 
-                val results = movieDao.getAllMovies(1)
+                println("currentUser.value?.id!! ${currentUser.value?.id!!}")
+
+                val results = movieDao.getAllMovies(currentUser.value?.id!!)
 
                 val currentCatalogedMovieList: MutableList<Movie> = mutableListOf()
                 results.forEach {
@@ -100,12 +102,16 @@ class MovieViewModel @Inject constructor(
     fun setMovieOnDatabase(movie: Movie) {
         viewModelScope.launch {
             try {
-                if (currentUser == null) {
+                _loading.postValue(true)
+                if (currentUser.value == null) {
                     return@launch
                 }
 
-                _loading.postValue(true)
-                val movieToEntity = movie.toMovieEntity(1)
+                println("currentUser.value?.id!! ${currentUser.value?.id!!}")
+
+                val movieToEntity = movie.toMovieEntity(currentUser.value?.id!!)
+
+                println("movieToEntity ${movieToEntity}")
 
                 insertMovieOnCatalog(movie)
                 movieDbRepository.saveMovie(movieToEntity)

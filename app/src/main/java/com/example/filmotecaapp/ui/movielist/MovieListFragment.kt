@@ -1,11 +1,13 @@
 package com.example.filmotecaapp.ui.movielist
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.filmotecaapp.R
 import com.example.filmotecaapp.data.db.AppDatabase
@@ -24,7 +26,7 @@ class MovieListFragment : Fragment() {
         fun newInstance() = MovieListFragment()
     }
 
-    private val viewModel: MovieViewModel by viewModels()
+    private lateinit var viewModel: MovieViewModel
 
     private var _binding: FragmentMovieListBinding? = null
     private val binding get() = _binding!!
@@ -38,6 +40,11 @@ class MovieListFragment : Fragment() {
     ): View {
         _binding = FragmentMovieListBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        viewModel = ViewModelProvider(requireActivity()).get(MovieViewModel::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

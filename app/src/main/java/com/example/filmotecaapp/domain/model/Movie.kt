@@ -28,7 +28,7 @@ data class Movie (
             poster_path = this.poster_path,
             vote_average = this.vote_average,
             favorite = this.favorite,
-            user_Id = this.user_id
+            user_Id = userId
         )
     }
 }

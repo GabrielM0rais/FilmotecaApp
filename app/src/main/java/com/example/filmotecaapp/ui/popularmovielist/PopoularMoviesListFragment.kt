@@ -1,5 +1,6 @@
 package com.example.filmotecaapp.ui.popularmovielist
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,7 +28,7 @@ class PopoularMoviesListFragment : Fragment() {
         fun newInstance() = PopoularMoviesListFragment()
     }
 
-    private val viewModel: MovieViewModel by viewModels()
+    private lateinit var viewModel: MovieViewModel
 
     private var _binding: FragmentPopoularMoviesBinding? = null
     private val binding get() = _binding!!
@@ -40,6 +42,11 @@ class PopoularMoviesListFragment : Fragment() {
     ): View {
         _binding = FragmentPopoularMoviesBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        viewModel = ViewModelProvider(requireActivity()).get(MovieViewModel::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
